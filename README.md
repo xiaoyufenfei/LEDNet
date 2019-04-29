@@ -1,4 +1,4 @@
-# LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation
+# LEDNet
 This repository contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1) for: "**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**" by Yu Wang.
 
 # Dependencies
