@@ -10,7 +10,7 @@
 - <a href='#Installation'>Installation</a>
 - <a href='#Datasets'>Datasets</a>
 - <a href='#Training-LEDNet'>Train</a>
-- <a href='#Resuming training if decoder part broken'>Resuming-training</a>
+- <a href='#Resuming-training-if-decoder-part-broken'>Resuming training</a>
 - <a href='#Testing'>Test</a>
 - <a href='#Results'>Results</a>
 - <a href='#Citation'>Reference</a>
@@ -111,7 +111,7 @@ cd LEDNet-master
 python main.py --savedir logs --model lednet --datadir path/root_directory/  --num-epochs xx --batch-size xx ...
 ```
 
-#### Resuming training if decoder part broken
+#### Resuming-training-if-decoder-part-broken
 
 - for help on the optional arguments you can run: `python main.py -h`
 
