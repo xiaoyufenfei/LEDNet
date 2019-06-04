@@ -6,7 +6,7 @@
 
 #### Table of Contents:
 - <a href='#Introduction'>Introduction</a>
-- <a href='#Project Structure'>Project Structure</a>
+- <a href='#Project-Structure'>Project Structure</a>
 - <a href='#Installation'>Installation</a>
 - <a href='#Datasets'>Datasets</a>
 - <a href='#Training-LEDNet'>Train</a>
@@ -24,7 +24,7 @@ This is an open-source project  contains the code (Note: The code is test in the
 
 The extensive computational burden limits the usage of CNNs in mobile devices for dense estimation tasks, a.k.a semantic segmentation. In this paper, we present a lightweight network to address this problem, namely **LEDNet**, which employs an asymmetric encoder-decoder architecture for the task of real-time semantic segmentation.More specifically, the encoder adopts a ResNet as backbone network, where two new operations, channel split and shuffle, are utilized in each residual block to greatly reduce computation cost while maintaining higher segmentation accuracy. On the other hand, an attention pyramid network (APN) is employed in the decoder to further lighten the entire network complexity. Our model has less than 1M parameters, and is able to run at over 71 FPS on a single GTX 1080Ti GPU card. The comprehensive experiments demonstrate that our approach achieves state-of-the-art results in terms of speed and accuracy trade-off on Cityscapes dataset. and becomes an effective method for real-time semantic segmentation tasks.
 
-#### Project Structure
+#### Project-Structure
 ```
 ├── datasets  # contains all datasets for the project
 |  └── cityscapes #  cityscapes dataset
