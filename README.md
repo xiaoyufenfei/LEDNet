@@ -18,7 +18,7 @@
 
 #### Introduction
 
-This is an  project  contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1, also support Pytorch-0.4.1+) for:  [**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**"](https://arxiv.org/pdf/1905.02423.pdf)  by [Yu Wang](https://github.com/xiaoyufenfei).
+This project contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1, also support Pytorch-0.4.1+) for:  [**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**](https://arxiv.org/pdf/1905.02423.pdf)  by [Yu Wang](https://github.com/xiaoyufenfei).
 
 <p align="center"><img width="100%" src="./images/LEDNet_overview.png" /></p>
 
