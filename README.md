@@ -18,7 +18,7 @@
 
 #### Introduction
 
-This is an open-source project  contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1, also support Pytorch-0.4.1+) for:  [**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**"](https://arxiv.org/pdf/1905.02423.pdf)  by [Yu Wang](https://github.com/xiaoyufenfei).
+This is an  project  contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1, also support Pytorch-0.4.1+) for:  [**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**"](https://arxiv.org/pdf/1905.02423.pdf)  by [Yu Wang](https://github.com/xiaoyufenfei).
 
 <p align="center"><img width="100%" src="./images/LEDNet_overview.png" /></p>
 
@@ -121,7 +121,7 @@ python main.py --savedir logs --name lednet --datadir path/root_directory/  --nu
 
 #### Testing
 
-- the trained models of training process can be found at [here](https://github.com/xiaoyufenfei/LEDNet/save). This may not be the best one, you can train one from scratch by yourself or Fine-tuning the training decoder with a model pre-trained on ImageNet, For instance
+- the trained models of training process can be found at [here](https://github.com/xiaoyufenfei/LEDNet/save/). This may not be the best one, you can train one from scratch by yourself or Fine-tuning the training decoder with  model encoder pre-trained on ImageNet, For instance
 
 ```
 more details refer ./test/README.md
