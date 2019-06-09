@@ -190,9 +190,9 @@ class Interpolate(nn.Module):
         return x
         
 
-class FPAModule(nn.Module):
+class APN_Module(nn.Module):
     def __init__(self, in_ch, out_ch):
-        super(FPAModule, self).__init__()		
+        super(APN_Module, self).__init__()		
 	# global pooling branch
         self.branch1 = nn.Sequential(
                 nn.AdaptiveAvgPool2d(1),
@@ -256,7 +256,7 @@ class Decoder (nn.Module):
     def __init__(self, num_classes):
         super().__init__()
 
-        self.fpa = FPAModule(in_ch=128,out_ch=20)
+        self.apn = APN_Module(in_ch=128,out_ch=20)
         #self.upsample = Interpolate(size=(512, 1024), mode="bilinear")
         #self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=4, stride=2, padding=1, output_padding=0, bias=True)
         #self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=3, stride=2, padding=1, output_padding=1, bias=True)
@@ -264,7 +264,7 @@ class Decoder (nn.Module):
   
     def forward(self, input):
         
-        output = self.fpa(input)
+        output = self.apn(input)
         out = interpolate(output, size=(512, 1024), mode="bilinear", align_corners=True)
         #out = self.upsample(output)
         return out
