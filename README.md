@@ -121,7 +121,7 @@ python main.py --savedir logs --name lednet --datadir path/root_directory/  --nu
 
 #### Testing
 
-- the trained models of training process can be found at [here](https://github.com/xiaoyufenfei/LEDNet/save/). This may not be the best one, you can train one from scratch by yourself or Fine-tuning the training decoder with  model encoder pre-trained on ImageNet, For instance
+- the trained models of training process can be found at [here](https://github.com/xiaoyufenfei/LEDNet/tree/master/save). This may not be the best one, you can train one from scratch by yourself or Fine-tuning the training decoder with  model encoder pre-trained on ImageNet, For instance
 
 ```
 more details refer ./test/README.md
