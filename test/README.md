@@ -37,7 +37,7 @@ This code can be used to calculate the IoU (mean and per-class) in a subset of i
 
 **Examples:**
 
-```python
+```
 python eval_iou.py --datadir /xx/datasets/cityscapes/ --loadDir ../save/logs/ --loadWeights model_best.pth --loadModel lednet.py --subset val
 ```
 
@@ -47,7 +47,7 @@ This function loads a model specified by '-m' and enters a loop to continuously 
 **Options:** Option '--width' specifies the width (default: 1024). Option '--height' specifies the height (default: 512). For other options check the bottom side of the file.
 
 **Examples:**
-```python
+```
 python eval_forward_time.py --batch-size=6
 ```
 
