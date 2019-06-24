@@ -47,7 +47,16 @@ class DownsamplerBlock (nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, input):
-        output = torch.cat([self.conv(input), self.pool(input)], 1)
+        x1 = self.pool(input)
+        x2 = self.conv(input)
+
+        diffY = x2.size()[2] - x1.size()[2]
+        diffX = x2.size()[3] - x1.size()[3]
+
+        x1 = F.pad(x1, (diffX // 2, diffX - diffX//2,
+                        diffY // 2, diffY - diffY//2))
+
+        output = torch.cat([x2, x1], 1)
         output = self.bn(output)
 		output = self.relu(output)
         return output 
@@ -139,14 +148,14 @@ class Encoder(nn.Module):
         self.layers = nn.ModuleList()
 
         for x in range(0, 3):   
-           self.layers.append(SS_nbt_module(32, 0.03, 1)) 
+            self.layers.append(SS_nbt_module(32, 0.03, 1)) 
         
 
         self.layers.append(DownsamplerBlock(32,64))
         
 
         for x in range(0, 2):   
-           self.layers.append(SS_nbt_module(64, 0.03, 1)) 
+            self.layers.append(SS_nbt_module(64, 0.03, 1)) 
   
         self.layers.append(DownsamplerBlock(64,128))
 
