@@ -217,12 +217,8 @@ def train(args, model, enc=False):
                 break            
             
             if args.cuda:
-                images = images.cuda()
-                labels = labels.cuda()
-
-            with torch.no_grad():
-                inputs = Variable(images)     
-                targets = Variable(labels)            
+                inputs = images.cuda()
+                targets = labels.cuda()           
             
             outputs = model(inputs, only_encode=enc)
 
