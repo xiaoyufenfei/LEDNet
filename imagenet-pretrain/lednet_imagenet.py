@@ -16,13 +16,13 @@ def Channel_shuffle(x,groups):
     
     channels_per_group = num_channels // groups
     
-    #reshape
+    # reshape
     x = x.view(batchsize,groups,
         channels_per_group,height,width)
     
     x = torch.transpose(x,1,2).contiguous()
     
-    #flatten
+    # flatten
     x = x.view(batchsize,-1,height,width)
     
     return x
@@ -42,7 +42,7 @@ class Conv2dBnRelu(nn.Module):
         return self.conv(x)
 
 
-##after Concat -> BN, you also can use Dropout like SS_nbt_module may be make a good result!
+# after Concat -> BN, you also can use Dropout like SS_nbt_module may be make a good result!
 class DownsamplerBlock (nn.Module):
     def __init__(self, in_channel, out_channel):
         super().__init__()
@@ -65,7 +65,7 @@ class SS_nbt_module(nn.Module):
 
         oup_inc = chann//2
         
-        #dw
+        # dw
         self.conv3x1_1_l = nn.Conv2d(oup_inc, oup_inc, (3,1), stride=1, padding=(1,0), bias=True)
 
         self.conv1x3_1_l = nn.Conv2d(oup_inc, oup_inc, (1,3), stride=1, padding=(0,1), bias=True)
@@ -78,7 +78,7 @@ class SS_nbt_module(nn.Module):
 
         self.bn2_l = nn.BatchNorm2d(oup_inc, eps=1e-03)
         
-        #dw
+        # dw
         self.conv3x1_1_r = nn.Conv2d(oup_inc, oup_inc, (3,1), stride=1, padding=(1,0), bias=True)
 
         self.conv1x3_1_r = nn.Conv2d(oup_inc, oup_inc, (1,3), stride=1, padding=(0,1), bias=True)

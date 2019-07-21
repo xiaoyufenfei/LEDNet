@@ -18,13 +18,13 @@ def Channel_shuffle(x,groups):
     
     channels_per_group = num_channels // groups
     
-    #reshape
+    # reshape
     x = x.view(batchsize,groups,
         channels_per_group,height,width)
     
     x = torch.transpose(x,1,2).contiguous()
     
-    #flatten
+    # flatten
     x = x.view(batchsize,-1,height,width)
     
     return x
@@ -44,7 +44,7 @@ class Conv2dBnRelu(nn.Module):
         return self.conv(x)
 
 
-##after Concat -> BN, you also can use Dropout like SS_nbt_module may be make a good result!
+# after Concat -> BN, you also can use Dropout like SS_nbt_module may be make a good result!
 class DownsamplerBlock (nn.Module):
     def __init__(self, in_channel, out_channel):
         super().__init__()
@@ -67,7 +67,7 @@ class SS_nbt_module(nn.Module):
 
         oup_inc = chann//2
         
-        #dw
+        # dw
         self.conv3x1_1_l = nn.Conv2d(oup_inc, oup_inc, (3,1), stride=1, padding=(1,0), bias=True)
 
         self.conv1x3_1_l = nn.Conv2d(oup_inc, oup_inc, (1,3), stride=1, padding=(0,1), bias=True)
@@ -80,7 +80,7 @@ class SS_nbt_module(nn.Module):
 
         self.bn2_l = nn.BatchNorm2d(oup_inc, eps=1e-03)
         
-        #dw
+        # dw
         self.conv3x1_1_r = nn.Conv2d(oup_inc, oup_inc, (3,1), stride=1, padding=(1,0), bias=True)
 
         self.conv1x3_1_r = nn.Conv2d(oup_inc, oup_inc, (1,3), stride=1, padding=(0,1), bias=True)
@@ -173,7 +173,7 @@ class Encoder(nn.Module):
             self.layers.append(SS_nbt_module(128, 0.3, 17))
                     
 
-        #Only in encoder mode:
+        # Only in encoder mode:
         self.output_conv = nn.Conv2d(128, num_classes, 1, stride=1, padding=0, bias=True)
 
     def forward(self, input, predict=False):
@@ -230,7 +230,7 @@ class APN_Module(nn.Module):
         w = x.size()[3]
         
         b1 = self.branch1(x)
-        #b1 = Interpolate(size=(h, w), mode="bilinear")(b1)
+        # b1 = Interpolate(size=(h, w), mode="bilinear")(b1)
         b1= interpolate(b1, size=(h, w), mode="bilinear", align_corners=True)
 	
         mid = self.mid(x)
@@ -238,16 +238,16 @@ class APN_Module(nn.Module):
         x1 = self.down1(x)
         x2 = self.down2(x1)
         x3 = self.down3(x2)
-        #x3 = Interpolate(size=(h // 4, w // 4), mode="bilinear")(x3)
+        # x3 = Interpolate(size=(h // 4, w // 4), mode="bilinear")(x3)
         x3= interpolate(x3, size=(h // 4, w // 4), mode="bilinear", align_corners=True)	
         x2 = self.conv2(x2)
         x = x2 + x3
-        #x = Interpolate(size=(h // 2, w // 2), mode="bilinear")(x)
+        # x = Interpolate(size=(h // 2, w // 2), mode="bilinear")(x)
         x= interpolate(x, size=(h // 2, w // 2), mode="bilinear", align_corners=True)
        		
         x1 = self.conv1(x1)
         x = x + x1
-        #x = Interpolate(size=(h, w), mode="bilinear")(x)
+        # x = Interpolate(size=(h, w), mode="bilinear")(x)
         x= interpolate(x, size=(h, w), mode="bilinear", align_corners=True)
         		
         x = torch.mul(x, mid)
@@ -265,16 +265,17 @@ class Decoder (nn.Module):
         super().__init__()
 
         self.apn = APN_Module(in_ch=128,out_ch=20)
-        #self.upsample = Interpolate(size=(512, 1024), mode="bilinear")
-        #self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=4, stride=2, padding=1, output_padding=0, bias=True)
-        #self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=3, stride=2, padding=1, output_padding=1, bias=True)
-        #self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=2, stride=2, padding=0, output_padding=0, bias=True)
+        # self.upsample = Interpolate(size=(512, 1024), mode="bilinear")
+        # self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=4, stride=2, padding=1, output_padding=0, bias=True)
+        # self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=3, stride=2, padding=1, output_padding=1, bias=True)
+        # self.output_conv = nn.ConvTranspose2d(16, num_classes, kernel_size=2, stride=2, padding=0, output_padding=0, bias=True)
   
     def forward(self, input):
         
         output = self.apn(input)
         out = interpolate(output, size=(512, 1024), mode="bilinear", align_corners=True)
-        #out = self.upsample(output)
+        # out = self.upsample(output)
+        # print(out.shape)
         return out
 
 

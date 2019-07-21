@@ -117,9 +117,8 @@ class SS_nbt_module(nn.Module):
         output1 = self.relu(output1)
         output1 = self.conv1x3_2_l(output1)
         output1 = self.bn2_l(output1)
-                   
-        ##
-		output2 = self.conv1x3_1_r(x2)
+
+        output2 = self.conv1x3_1_r(x2)
         output2 = self.relu(output2)
         output2 = self.conv3x1_1_r(output2)
         output2 = self.bn1_r(output2)
