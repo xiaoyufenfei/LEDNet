@@ -56,7 +56,7 @@ class DownsamplerBlock (nn.Module):
     def forward(self, input):
         output = torch.cat([self.conv(input), self.pool(input)], 1)
         # output = self.bn(output)
-		output = self.relu(output)
+        output = self.relu(output)
         return output 
 
 
