@@ -4,7 +4,15 @@ import torch.nn.init as init
 import torch.nn.functional as F
 from torch.nn.functional import interpolate as interpolate
 
-def channel_shuffle(x,groups):
+def Split(x):
+    c = int(x.size()[1])
+    c1 = round(c * 0.5)
+    x1 = x[:, :c1, :, :].contiguous()
+    x2 = x[:, c1:, :, :].contiguous()
+
+    return x1, x2
+
+def Channel_shuffle(x,groups):
     batchsize, num_channels, height, width = x.data.size()
     
     channels_per_group = num_channels // groups
@@ -93,9 +101,11 @@ class SS_nbt_module(nn.Module):
     
     def forward(self, input):
 
-        x1 = input[:,:(input.shape[1]//2),:,:]
-        x2 = input[:,(input.shape[1]//2):,:,:]      
-    
+        # x1 = input[:,:(input.shape[1]//2),:,:]
+        # x2 = input[:,(input.shape[1]//2):,:,:]
+        residual = input
+        x1, x2 = Split(input)
+
         output1 = self.conv3x1_1_l(x1)
         output1 = self.relu(output1)
         output1 = self.conv1x3_1_l(output1)
@@ -124,8 +134,8 @@ class SS_nbt_module(nn.Module):
             #output2 = self.dropout(output2)
 
         out = self._concat(output1,output2)
-        out = F.relu(input+out, inplace=True)
-        return channel_shuffle(out,2)       
+        out = F.relu(residual + out, inplace=True)
+        return Channel_shuffle(out, 2)
 
 class Encoder(nn.Module):
     def __init__(self, num_classes):
@@ -190,13 +200,13 @@ class Interpolate(nn.Module):
 class APN_Module(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(APN_Module, self).__init__()		
-	# global pooling branch
+        # global pooling branch
         self.branch1 = nn.Sequential(
                 nn.AdaptiveAvgPool2d(1),
                 Conv2dBnRelu(in_ch, out_ch, kernel_size=1, stride=1, padding=0)
 	)
 		
-	# midddle branch
+        # midddle branch
         self.mid = nn.Sequential(
 		Conv2dBnRelu(in_ch, out_ch, kernel_size=1, stride=1, padding=0)
 	)
