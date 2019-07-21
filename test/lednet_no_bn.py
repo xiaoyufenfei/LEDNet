@@ -145,15 +145,15 @@ class Encoder(nn.Module):
 
         self.layers = nn.ModuleList()
 
-        for x in range(0, 3):   
-           self.layers.append(SS_nbt_module(32, 0.03, 1)) 
+        for x in range(0, 3):
+            self.layers.append(SS_nbt_module(32, 0.03, 1))
         
 
         self.layers.append(DownsamplerBlock(32,64))
         
 
-        for x in range(0, 2):   
-           self.layers.append(SS_nbt_module(64, 0.03, 1)) 
+        for x in range(0, 2):
+            self.layers.append(SS_nbt_module(64, 0.03, 1))
   
         self.layers.append(DownsamplerBlock(64,128))
 
