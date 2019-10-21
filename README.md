@@ -2,7 +2,6 @@
 
 [![python-image]][python-url]
 [![pytorch-image]][pytorch-url]
-[![lic-image]][lic-url]
 
 #### Table of Contents:
 - <a href='#Introduction'>Introduction</a>
@@ -21,7 +20,6 @@
 This project contains the code (Note: The code is test in the environment with python=3.6, cuda=9.0, PyTorch-0.4.1, also support Pytorch-0.4.1+) for:  [**LEDNet: A Lightweight Encoder-Decoder Network for Real-time Semantic Segmentation**](https://arxiv.org/pdf/1905.02423.pdf)  by [Yu Wang](https://github.com/xiaoyufenfei).
 
 <p align="center"><img width="100%" src="./images/LEDNet_overview.png" /></p>
-
 The extensive computational burden limits the usage of CNNs in mobile devices for dense estimation tasks, a.k.a semantic segmentation. In this paper, we present a lightweight network to address this problem, namely **LEDNet**, which employs an asymmetric encoder-decoder architecture for the task of real-time semantic segmentation.More specifically, the encoder adopts a ResNet as backbone network, where two new operations, channel split and shuffle, are utilized in each residual block to greatly reduce computation cost while maintaining higher segmentation accuracy. On the other hand, an attention pyramid network (APN) is employed in the decoder to further lighten the entire network complexity. Our model has less than 1M parameters, and is able to run at over 71 FPS on a single GTX 1080Ti GPU card. The comprehensive experiments demonstrate that our approach achieves state-of-the-art results in terms of speed and accuracy trade-off on Cityscapes dataset. and becomes an effective method for real-time semantic segmentation tasks.
 
 #### Project-Structure
@@ -138,7 +136,6 @@ more details refer ./test/README.md
 qualitative segmentation result examples:
 
 <p align="center"><img width="100%" src="./images/LEDNet_demo.png" /></p>
-
 #### Citation
 
 If you find this code useful for your research, please use the following BibTeX entry.
@@ -167,12 +164,9 @@ If you find this code useful for your research, please use the following BibTeX 
 <!--
 [![python-image]][python-url]
 [![pytorch-image]][pytorch-url]
-[![lic-image]][lic-url]
 -->
 
 [python-image]: https://img.shields.io/badge/Python-3.x-ff69b4.svg
 [python-url]: https://www.python.org/
 [pytorch-image]: https://img.shields.io/badge/PyTorch-1.0-2BAF2B.svg
 [pytorch-url]: https://pytorch.org/
-[lic-image]: https://img.shields.io/aur/license/pac.svg
-[lic-url]: https://github.com/xiaoyufenfei/LEDNet/blob/master/LICENSE
