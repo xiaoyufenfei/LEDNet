@@ -105,6 +105,7 @@ cd LEDNet-master
 
 - By default, we assume you have downloaded the cityscapes dataset in the `./data/cityscapes` dir.
 - To train LEDNet using the train/main.py script the parameters listed in `main.py` as a flag or manually change them.
+
 ```
 python main.py --savedir logs --model lednet --datadir path/root_directory/  --num-epochs xx --batch-size xx ...
 ```
