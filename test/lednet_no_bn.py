@@ -54,10 +54,19 @@ class DownsamplerBlock (nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, input):
-        output = torch.cat([self.conv(input), self.pool(input)], 1)
-        # output = self.bn(output)
+        x1 = self.pool(input)
+        x2 = self.conv(input)
+
+        diffY = x2.size()[2] - x1.size()[2]
+        diffX = x2.size()[3] - x1.size()[3]
+
+        x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,
+                        diffY // 2, diffY - diffY // 2])
+
+        output = torch.cat([x2, x1], 1)
+        output = self.bn(output)
         output = self.relu(output)
-        return output 
+        return output
 
 
 class SS_nbt_module(nn.Module):

@@ -47,7 +47,7 @@ class Conv2dBnRelu(nn.Module):
 # after Concat -> BN, you also can use Dropout like SS_nbt_module may be make a good result!
 class DownsamplerBlock (nn.Module):
     def __init__(self, in_channel, out_channel):
-        super().__init__()
+        super(DownsamplerBlock,self).__init__()
 
         self.conv = nn.Conv2d(in_channel, out_channel-in_channel, (3, 3), stride=2, padding=1, bias=True)
         self.pool = nn.MaxPool2d(2, stride=2)
@@ -55,7 +55,16 @@ class DownsamplerBlock (nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, input):
-        output = torch.cat([self.conv(input), self.pool(input)], 1)
+        x1 = self.pool(input)
+        x2 = self.conv(input)
+
+        diffY = x2.size()[2] - x1.size()[2]
+        diffX = x2.size()[3] - x1.size()[3]
+
+        x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,
+                        diffY // 2, diffY - diffY // 2])
+
+        output = torch.cat([x2, x1], 1)
         output = self.bn(output)
         output = self.relu(output)
         return output
